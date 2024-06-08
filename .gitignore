@@ -60,6 +60,7 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+data/*
 
 # Flask stuff:
 instance/
@@ -121,10 +122,7 @@ celerybeat.pid
 
 # Environments
 #env/.env
-.venv
-../env/.env.template
-!../env/.env.template
-!../env/docker.env.template
+env/*.env
 venv/
 ../env/
 env.bak/
@@ -163,3 +161,11 @@ cython_debug/
 
 #logger
 logs/*
+!logs/.gitkeep
+
+# django static
+staticfiles/*
+
+# django media
+media/*
+!media/.gitkeep

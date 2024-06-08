@@ -1,14 +1,28 @@
 version: '3.9'
 services:
-  app:
+  postgres-django-project:
+    image: postgres:latest
+    container_name: postgres-django-project
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    env_file:
+      - env/docker.env
+
+  django-project:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app
-#    restart: unless-stopped
+    container_name: django-project
+    restart: unless-stopped
     env_file:
-      - ./env/docker.env
-      - ./env/.env
+      - env/.env
     volumes:
       - ./logs/:/app/logs
-    command: ["python", "main.py"]
+      - ./media/:/app/media
+      - ./static/:/app/static
+    depends_on:
+      - postgres-django-project
+    command: gunicorn project.wsgi:application --bind 127.0.0.1:8000 --log-level debug
