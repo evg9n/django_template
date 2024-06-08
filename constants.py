@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 class Constants:
 
     def __init__(self):
-        load_dotenv(path.abspath(path.join('env', '.env')))
-        path_env = path.abspath('env')
+        load_dotenv(path.abspath(path.join('../env', '.env')))
+        path_env = path.abspath('../env')
         try:
             for env in listdir(path_env):
                 if env.endswith('.env'):
