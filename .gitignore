@@ -169,3 +169,4 @@ staticfiles/*
 # django media
 media/*
 !media/.gitkeep
+poetry.lock
