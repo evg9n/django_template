@@ -1,4 +1,8 @@
-FROM python:3.10.12-alpine
+FROM python:3.12-alpine
+
+RUN pip install poetry
+
+RUN poetry config virtualenvs.create false
 
 WORKDIR /app
 
@@ -6,11 +10,11 @@ USER root
 
 RUN apk add --no-cache libpq postgresql-dev build-base
 
-RUN python -m pip install --upgrade pip
+COPY pyproject.toml poetry.lock* ./
 
-COPY . /app
+RUN poetry install --no-interaction --no-ansi --no-root
 
-RUN pip install -r requirements.txt
+COPY . .
 
 EXPOSE 8000
 
